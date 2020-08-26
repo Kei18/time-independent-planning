@@ -44,19 +44,24 @@ void MAPF_RANDOM::setStartsGoalsRandomly()
   if (Agent::isInitialized()) {
     for (auto s : Agent::CONFIGURATIONS[0]) starts.push_back(s->tail);
   } else {
-    starts = getSuffledNodes(A.size());
+    starts = getShuffledNodes(A.size());
   }
+
   // find no duplicated sets
   bool no_duplication = false;
   while (!no_duplication) {
     no_duplication = true;
-    goals = getSuffledNodes(A.size());
+    goals = getShuffledNodes(A.size());
     for (int i = 0; i < A.size(); ++i) {
       if (starts[i] == goals[i]) {
         no_duplication = false;
         break;
       }
     }
+  }
+
+  for (int i = 0; i < A.size(); ++i) {
+    std::cout << starts[i]->id << ", " << goals[i]->id << std::endl;
   }
 
   // set goals

@@ -33,7 +33,7 @@ void Problem::run()
   elapsed = getElapsedTime(t_start);
 }
 
-Nodes Problem::getSuffledNodes()
+Nodes Problem::getShuffledNodes()
 {
   Nodes V = G->getNodes();
   Nodes W(V.size());
@@ -42,20 +42,20 @@ Nodes Problem::getSuffledNodes()
   return W;
 }
 
-Nodes Problem::getSuffledNodes(int n)
+Nodes Problem::getShuffledNodes(int n)
 {
   if (n >= G->getNodesNum()) {
     halt("Problem::getSuffledNodes", "#node "
          + std::to_string(n) + " are too big!");
   }
-  Nodes V = getSuffledNodes();
+  Nodes V = getShuffledNodes();
   V.resize(n);
   return V;
 }
 
 void Problem::setStartsRandomly()
 {
-  Nodes starts = getSuffledNodes();
+  Nodes starts = getShuffledNodes();
   for (int i = 0; i < A.size(); ++i) A[i]->init(starts[i]);
 }
 

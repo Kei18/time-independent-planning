@@ -18,8 +18,8 @@ protected:
   int elapsed;               // computation time (ms)
 
   // used for set positions randomly
-  Nodes getSuffledNodes();
-  Nodes getSuffledNodes(int n);
+  Nodes getShuffledNodes();
+  Nodes getShuffledNodes(int n);
   void setStartsRandomly();
 
   virtual bool checkSolved() { return false; }

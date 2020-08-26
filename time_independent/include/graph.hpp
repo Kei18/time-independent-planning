@@ -131,6 +131,9 @@ protected:
   // if (x, y) is occupied then V[y * width + x] = nullptr
   Nodes V;
 
+  // skip nullptr nodes
+  Nodes U;
+
 public:
   Graph() {};
   virtual ~Graph();
@@ -147,10 +150,10 @@ public:
   virtual int dist(Node* const v, Node* const u) { return 0; }
 
   // number of nodes
-  int getNodesNum() { return V.size(); }
+  int getNodesNum();
 
   // all nodes
-  Nodes getNodes() { return V; }
+  Nodes getNodes();
 
   // get path between two nodes
   Path getPath(Node* const s, Node* const g);

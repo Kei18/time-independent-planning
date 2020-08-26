@@ -68,7 +68,7 @@ This software is released under the MIT License, see [LICENSE.txt](LICENCE.txt).
 - Scripts for the experiments are in `exp_scripts/`.
 
 ## Author
-anonymous
+[Keisuke Okumura](https://kei18.github.io) is a Ph.D. candidate at Tokyo Institute of Technology, working on multiple moving agents.
 
 ## Reference
 1. Ma, H., Kumar, T. K., & Koenig, S. (2016).

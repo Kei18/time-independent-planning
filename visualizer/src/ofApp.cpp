@@ -54,7 +54,6 @@ void ofApp::update()
 {
   if (!flg_autoplay) return;
 
-  // t <- t + speed
   if (focus_tab == TAB_TIME_IND) {
     int step = step_slider;
     step = step + 1;
@@ -326,4 +325,16 @@ void ofApp::gotMessage(ofMessage msg) {}
 void ofApp::printKeys()
 {
   std::cout << "keys for visualizer" << std::endl;
+  std::cout << "- tab : switch focus" << std::endl;
+  std::cout << "- p : play or pause" << std::endl;
+  std::cout << "- l : loop or not" << std::endl;
+  std::cout << "- r : reset" << std::endl;
+  std::cout << "- v : show virtual line to goals" << std::endl;
+  std::cout << "- f : show agent & node id" << std::endl;
+  std::cout << "- g : show goals" << std::endl;
+  std::cout << "- right : progress" << std::endl;
+  std::cout << "- left  : back" << std::endl;
+  std::cout << "- up    : speed up" << std::endl;
+  std::cout << "- down  : speed down" << std::endl;
+  std::cout << "- esc : terminate" << std::endl;
 }

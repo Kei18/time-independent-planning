@@ -43,6 +43,7 @@ int main(int argc, char *argv[])
   std::string output_file = "result.txt";
   std::string solver_name = "CAUSAL_PIBT";
   bool verbose = false;
+  bool log_simple = false;
 
   struct option longopts[] =
     {
@@ -51,13 +52,14 @@ int main(int argc, char *argv[])
      { "solver", required_argument, 0, 's' },
      { "help", no_argument, 0, 'h' },
      { "verbose", no_argument, 0, 'v' },
+     { "log-simple", no_argument, 0, 'l' },
      { 0, 0, 0, 0 },
     };
 
   // command line args
   int opt, longindex;
   opterr = 0;  // ignore getopt error
-  while ((opt = getopt_long(argc, argv, "i:o:s:hv",
+  while ((opt = getopt_long(argc, argv, "i:o:s:hvl",
                             longopts, &longindex)) != -1) {
     switch (opt) {
     case 'i':
@@ -71,6 +73,9 @@ int main(int argc, char *argv[])
       break;
     case 'v':
       verbose = true;
+      break;
+    case 'l':
+      log_simple = true;
       break;
     case 'h':
       printHelp();
@@ -176,7 +181,7 @@ int main(int argc, char *argv[])
   if (param.mapf_plan != "")
     result += "mapf_plan=" + param.mapf_plan + "\n";
   result += P->strProblem();
-  result += Agent::strAgent();
+  if (!log_simple) result += Agent::strAgent();
   std::ofstream log;
   log.open(output_file, std::ios::out);
   if (!log) halt("main", output_file + " cannot open");
@@ -295,6 +300,7 @@ void printHelp()
             << "  -o --output [FILE_PATH]       ouptut file path\n"
             << "  -s --solver [SOLVER_NAME]     solver, choose from "
             << "[ GREEDY, CAUSAL_PIBT, CAUSAL_PIBT_MAPF, FSP, MCP ]\n"
+            << "  -l --log-simple               use simple log\n"
             << "  -v --verbose                  print additional info\n"
             << "  -h --help                     help\n"
             << std::endl;

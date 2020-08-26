@@ -8,6 +8,22 @@ Graph::~Graph()
   for (auto v : V) delete v;
 }
 
+int Graph::getNodesNum()
+{
+  if (U.empty()) {
+    for (auto v : V) if (v != nullptr) U.push_back(v);
+  }
+  return U.size();
+}
+
+Nodes Graph::getNodes()
+{
+  if (U.empty()) {
+    for (auto v : V) if (v != nullptr) U.push_back(v);
+  }
+  return U;
+}
+
 Path Graph::getPath(Node* const s, Node* const g)
 {
   if (s == g) return {};
