@@ -3,26 +3,36 @@
 #include <fstream>
 #include "../include/stn.hpp"
 
-MAPF_RANDOM::MAPF_RANDOM(Graph* _G, Agents _A, std::mt19937* _MT, int _max_activation)
+MAPF_RANDOM::MAPF_RANDOM(Graph* _G,
+                         Agents _A,
+                         std::mt19937* _MT,
+                         int _max_activation)
   : Problem(_G, _A, _MT, _max_activation)
 {
+  // set starts and goals randomly
   setStartsGoalsRandomly();
 }
 
-MAPF_RANDOM::MAPF_RANDOM(std::string scen, Graph* _G, Agents _A, std::mt19937* _MT, int _max_activation)
+MAPF_RANDOM::MAPF_RANDOM(std::string scen,
+                         Graph* _G,
+                         Agents _A,
+                         std::mt19937* _MT,
+                         int _max_activation)
   : Problem(_G, _A, _MT, _max_activation)
 {
+  // set starts and goals
   readScenario(scen);
-  // set starts
   for (int i = 0; i < A.size(); ++i) A[i]->init(starts[i], goals[i]);
 }
 
 MAPF_RANDOM::~MAPF_RANDOM() {};
 
+// when all agents are contracted and reach their goals -> true
 bool MAPF_RANDOM::checkSolved()
 {
   for (auto a : A) {
-    if (a->getMode() != Agent::CONTRACTED || a->getTail() != a->getGoal()) return false;
+    if (a->getMode() != Agent::CONTRACTED ||
+        a->getTail() != a->getGoal()) return false;
   }
   return true;
 }
@@ -97,13 +107,17 @@ void MAPF_RANDOM::readScenario(std::string filename)
     }
   }
 
-  if (num_agents > starts.size()) setStartsGoalsRandomly();
+  if (num_agents > starts.size()) {
+    warn("the number of agents is smaller than the number of starts");
+    setStartsGoalsRandomly();
+  }
 
   // trimming
   starts.resize(num_agents);
   goals.resize(num_agents);
 }
 
+// for log
 std::string MAPF_RANDOM::strProblem()
 {
   std::string str = "problem=MAPF_RANDOM\n";
@@ -115,6 +129,7 @@ std::string MAPF_RANDOM::strProblem()
   for (auto v : goals) str += std::to_string(v->id) + ",";
   str += "\n";
 
+  // use Simple Temporal Network to obtain the best realization
   STN stn = STN(G, A);
   str += "makespan=" + std::to_string(stn.getMakespan()) + "\n";
   str += "soc=" + std::to_string(stn.getSOC()) + "\n";

@@ -10,14 +10,19 @@ STN::STN(Graph* _G, Agents _A) : G(_G), A(_A)
   elapsed = getElapsedTime(t_start);
 }
 
-STN::~STN() {}
+STN::~STN() {
+  for (auto itr = event_table.begin(); itr != event_table.end(); ++itr) {
+    delete itr->second;
+  }
+}
 
 void STN::createDiagram()
 {
   Event* XS = new Event { cnt_id++, -1, nullptr, {}, nullptr };
   event_table[XS->id] = XS;
 
-  Events last_events;
+  Events last_events;  // for each agent
+  // initial events
   for (auto s : Agent::ST_DIAGRAM[0]) {
     Event* e = new Event { cnt_id++, 0, s, { XS }, nullptr };
     event_table[e->id] =  e;
@@ -70,6 +75,7 @@ void STN::createDiagram()
     }
   }
 
+  // final event
   XF = new Event
     { cnt_id++, (int)Agent::ST_DIAGRAM.size(), nullptr, {}, nullptr };
   event_table[XF->id] = XF;
@@ -81,6 +87,7 @@ int STN::getTimestep(Event* e)
   return -getDist(e);
 }
 
+// get distance to the event XS
 int STN::getDist(Event* e)
 {
   // check registered or not
@@ -122,25 +129,21 @@ int STN::edgeWeight(Event* child, Event* parent)
   return 0;
 }
 
+// makespan
 int STN::getMakespan()
 {
   return getTimestep(XF);
 }
 
-std::vector<int> STN::getCosts()
+// sum-of-cost
+int STN::getSOC()
 {
   std::vector<int> costs;
   for (auto e: XF->parents) costs.push_back(getTimestep(e));
-  return costs;
-}
-
-
-int STN::getSOC()
-{
-  std::vector<int> costs = getCosts();
   return std::accumulate(costs.begin(), costs.end(), 0);
 }
 
+// get local execution
 Events STN::getLocalExec(Event* last_event)
 {
   Events local_exec = {};
@@ -171,6 +174,7 @@ Events STN::getLocalExecPos(Event* last_event)
   return events;
 }
 
+// construct MAPF execution
 void STN::findRealization()
 {
   realization.clear();
@@ -201,49 +205,11 @@ void STN::findRealization()
   }
 }
 
-void STN::printPath()
-{
-  for (int i = 0; i < realization.size(); ++i) {
-    std::cout << std::right << std::setw(2) << i << ": ";
-    Events events = realization[i];
-    for (auto e : events) {
-      std::cout << std::right << std::setw(4)
-                << e->s->tail->id << " -> ";
-    }
-    std::cout << "\n";
-  }
-}
-
+// for log
 std::string STN::strMAPFExecution()
 {
   int makespan = getMakespan();
   std::string str = "";
-  for (int t = 0; t <= makespan; ++t) {
-    str += std::to_string(t) + ":";
-    for (int i = 0; i < A.size(); ++i) {
-      auto e = realization[i][t];
-      str += std::to_string(e->s->tail->id) + ",";
-    }
-    str += "\n";
-  }
-  return str;
-}
-
-std::string STN::strSTN()
-{
-  int makespan = getMakespan();
-  std::string str = "";
-  str += "[STN] elapsed:" + std::to_string(elapsed) + "\n";
-  str += "[STN] SOC:" + std::to_string(getSOC()) + "\n";
-  str += "[STN] makespan:" + std::to_string(makespan) + "\n";
-  std::vector<int> costs = getCosts();
-  str += "[STN] cost:";
-  for (int i = 0; i < A.size(); ++i) {
-    str += std::to_string(costs[i]) + ",";
-  }
-  str += "\n";
-
-  str += "[STN] exec:\n";
   for (int t = 0; t <= makespan; ++t) {
     str += std::to_string(t) + ":";
     for (int i = 0; i < A.size(); ++i) {

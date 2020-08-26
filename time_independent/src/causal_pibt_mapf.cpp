@@ -5,6 +5,7 @@ CausalPIBT_MAPF::CausalPIBT_MAPF(Path _plan)
   t = 0;
   plan = { _plan[0] };
 
+  // arrange path, skip "stay" action
   for (auto v : _plan) {
     if (v != *(plan.end() - 1)) plan.push_back(v);
   }
@@ -15,16 +16,17 @@ CausalPIBT_MAPF::~CausalPIBT_MAPF() {}
 void CausalPIBT_MAPF::init(Node* v, Node* g)
 {
   CausalPIBT::init(v, g);
-  pori.path = plan.size();
-  Agent::kind_name = "CAUSAL_PIBT_MAPF";
+  pori.path = plan.size();  // set priority
 }
 
 void CausalPIBT_MAPF::actExtended()
 {
+  // increment internal clock
   if ((t+1 < plan.size()) && (plan[t+1] == head)) {
     ++t;
-  } else if (inArray(head, plan)) {
-    int _t = std::distance(plan.begin(), std::find(plan.begin(), plan.end(), head));
+  } else if (inArray(head, plan)) {  // align internal clock
+    int _t = std::distance(plan.begin(),
+                           std::find(plan.begin(), plan.end(), head));
     if (_t > t) t = _t;
   }
 
@@ -43,22 +45,19 @@ Node* CausalPIBT_MAPF::nextNode()
 
   Node* v;
   if (t + 1 >= plan.size()) {
-    v = *(plan.end() - 1);
+    v = *(plan.end() - 1);  // goal node
     if (inArray(v, C)) {
-      return v;
+      return v;  // go to the goal
     } else {
-      return CausalPIBT::nextNode();
+      return CausalPIBT::nextNode();  // work as usual
     }
   }
 
-  // usual
+  // follow the original plan
   if (plan[t] == tail) {
     v = plan[t+1];
     if (inArray(v, C)) return v;
   }
-
-  // int search_max = (plan.size() < t + 10) ? plan.size() : t + 10;
-  int search_max = plan.size();
 
   // \argmin_{u \in C} { min_{ w \in path[t+1:] } { cost(u, w) } }
   v = *std::min_element(
@@ -67,7 +66,7 @@ Node* CausalPIBT_MAPF::nextNode()
       int d;
       int d_u1 = G->getNodesNum();
       int d_u2 = G->getNodesNum();
-      for (int _t = t + 1; _t < search_max; ++_t) {
+      for (int _t = t + 1; _t < plan.size(); ++_t) {
         d = G->pathDist(u1, plan[_t]);
         if (d < d_u1) d_u1 = d;
         d = G->pathDist(u2, plan[_t]);

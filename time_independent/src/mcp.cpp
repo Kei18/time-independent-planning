@@ -9,37 +9,42 @@ MCP::MCP(Nodes _plan) : plan(_plan)
   PLANS.push_back(plan);
 }
 
-MCP::~MCP() {
-}
+MCP::~MCP() {}
 
-void MCP::init(Node* v, Node* g) {
+void MCP::init(Node* v, Node* g)
+{
   Agent::init(v, g);
-  Agent::kind_name = "MCP";
 }
 
-void MCP::actContracted() {
+void MCP::actContracted()
+{
   Node* u = nextNode();
   if (u == tail) {
     ++t;
     return;
   }
+  // check temporal dependencies
   if (isStable()) return;
 
   head = u;
   mode = REQUESTING;
 }
 
-void MCP::actExtended() {
-  ++t;
+void MCP::actExtended()
+{
+  ++t;  // progress internal clock
   Agent::actExtended();
 }
 
-bool MCP::isStable() {
+bool MCP::isStable()
+{
   if (mode != CONTRACTED) {
-    return (mode == EXTENDED) || (mode == REQUESTING && Agent::occupied(head));
+    return (mode == EXTENDED) ||
+      (mode == REQUESTING && Agent::occupied(head));
   }
 
   // contracted
+  // reaching goal
   if (tail == goal && t >= plan.size() - 1) return true;
   Node* u = nextNode();
 
@@ -56,7 +61,8 @@ bool MCP::isStable() {
   return false;
 }
 
-Node* MCP::nextNode() {
+Node* MCP::nextNode()
+{
   if (t > plan.size()) return *(plan.end() - 1);
   return plan[t+1];
 }

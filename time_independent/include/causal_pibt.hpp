@@ -1,3 +1,7 @@
+/*
+ * Causal-PIBT
+ */
+
 #pragma once
 #include "agent.hpp"
 
@@ -47,9 +51,12 @@ struct Prio {  // priority
 
   void println() {
     std::cout << std::right << std::setw(3) << id << ", "
-              << "has_goal:" << std::right << std::setw(6) << has_goal  << ", "
-              << "cnt:" << std::right << std::setw(6) << cnt_goal_reach << ", "
-              << "id:" << std::right << std::setw(6) << id << "\n";
+              << "has_goal:" << std::right << std::setw(6)
+              << has_goal  << ", "
+              << "cnt:" << std::right << std::setw(6)
+              << cnt_goal_reach << ", "
+              << "id:" << std::right << std::setw(6)
+              << id << "\n";
   }
 };
 
@@ -76,7 +83,7 @@ protected:
   virtual void actRequesting();
   virtual void actExtended();
 
-  Node* nextNode();
+  virtual Node* nextNode();
   CausalPIBT* chooseWinner(std::vector<CausalPIBT*> R);
 
 public:

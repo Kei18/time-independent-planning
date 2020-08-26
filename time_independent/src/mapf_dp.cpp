@@ -27,6 +27,7 @@ MAPF_DP::~MAPF_DP() {}
 
 void MAPF_DP::init()
 {
+  // set delay probabilities
   for (int i = 0; i < A.size(); ++i) {
     delayProbs.push_back(getRandomFloat(0, delayProbMax, MT));
   }
@@ -35,10 +36,7 @@ void MAPF_DP::init()
 
 
 void MAPF_DP::run() {
-
-  // main loop
   auto t_start = Time::now();
-
   int num_activate = 0;
   bool flg_stop = false;
 
@@ -59,6 +57,7 @@ void MAPF_DP::run() {
         a->activate();
         unstable.push_back(a);
 
+        // check termination (maximum step)
         ++num_activate;
         if (num_activate >= max_activation) {
           flg_stop = true;
@@ -101,6 +100,7 @@ void MAPF_DP::run() {
         }
       }
 
+      // check again whether agents are in stable
       if (!flg_stop) {
         for (auto a : A) {
           if (!a->isStable()) unstable.push_back(a);
@@ -112,11 +112,13 @@ void MAPF_DP::run() {
   elapsed = getElapsedTime(t_start);
 }
 
+// makespan
 int MAPF_DP::getMakespan()
 {
   return exec.size() - 1;
 }
 
+// sum of cost
 int MAPF_DP::getSOC()
 {
   if (!solved) return 0;
@@ -134,7 +136,7 @@ int MAPF_DP::getSOC()
   return soc;
 }
 
-
+// for log
 std::string MAPF_DP::strProblem()
 {
   int makespan = getMakespan();

@@ -15,12 +15,12 @@ public:
   MAPF_RANDOM(Graph* _G,
               Agents _A,
               std::mt19937* _MT,
-              int _max_activation = DEFAULT_MAX_ACTIVATION);
+              int _max_activation);  // random starts and goals
   MAPF_RANDOM(std::string scen,
               Graph* _G,
               Agents _A,
               std::mt19937* _MT,
-              int _max_activation = DEFAULT_MAX_ACTIVATION);
+              int _max_activation);
   ~MAPF_RANDOM();
 
   std::string strProblem();

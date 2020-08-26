@@ -20,7 +20,7 @@ seed=0
 random_problem=0
 
 ## max activation
-max_activation=100
+max_activation=1000
 
 ## mapf_plan
 mapf_plan=sample.txt

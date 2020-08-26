@@ -8,13 +8,14 @@ Graph* Agent::G;
 Agents Agent::A;
 std::vector<States> Agent::CONFIGURATIONS;
 std::vector<States> Agent::ST_DIAGRAM;
+std::vector<State*> Agent::GC_state;
 Agents Agent::interacted_agents;
 bool Agent::is_initialized = false;
-std::string Agent::kind_name = "NONE";
+bool Agent::verbose = false;
 
-Agent::Agent() : id(cnt_id)
+
+Agent::Agent() : id(cnt_id++)
 {
-  ++cnt_id;
   mode = CONTRACTED;
   pre_mode = CONTRACTED;
   tail = nullptr;
@@ -24,8 +25,13 @@ Agent::Agent() : id(cnt_id)
   A.push_back(this);
 }
 
-Agent::~Agent() {}
+Agent::~Agent()
+{
+  for (auto s : GC_state) delete s;
+  GC_state.clear();
+}
 
+// set tail and goal
 void Agent::init(Node* v, Node* g)
 {
   Agent::is_initialized = true;
@@ -33,7 +39,7 @@ void Agent::init(Node* v, Node* g)
   goal = g;
 
   // add configuration
-  State* s = new State { id, mode, mode, head, tail, goal };
+  State* s = getState();
   if (id == 0) {
     ST_DIAGRAM.push_back({ s });
     CONFIGURATIONS.push_back({ s });
@@ -43,6 +49,7 @@ void Agent::init(Node* v, Node* g)
   }
 }
 
+// according to mode, call corresponding activation function
 void Agent::activate()
 {
   switch (mode) {
@@ -64,13 +71,12 @@ void Agent::activate()
 
   // update ST_DIAGRAM, CONFIGURATIONS
   States configuration(A.size()), states;
-  State* s_activated = new State { id, mode, pre_mode, head, tail, goal };
+  State* s_activated = getState();
   configuration[id] = s_activated;
   states.push_back(s_activated);
   for (auto a : A) {
     if (a == this) continue;
-    State* s = new State { a->getId(), a->getMode(), a->getPreMode(),
-                           a->getHead(), a->getTail(), a->getGoal() };
+    State* s = a->getState();
     configuration[a->getId()] = s;
     if (inArray(a, interacted_agents)) states.push_back(s);
   }
@@ -78,16 +84,19 @@ void Agent::activate()
   CONFIGURATIONS.push_back(configuration);
   interacted_agents.clear();
 
+  if (verbose) printState(s_activated);
+
   ++cnt_activation;
 }
 
+/*
+ * the following is transition rules
+ */
 void Agent::actContracted()
 {
-  Node* u;
-  u = nextNode();  // chose one node
-  if (u == tail) return;
-  head = u;
-  mode = REQUESTING;
+  // Node* u;
+  // head = u;
+  // mode = REQUESTING;
 }
 
 void Agent::actRequesting()
@@ -103,16 +112,12 @@ void Agent::actExtended()
   mode = CONTRACTED;
 }
 
-Node* Agent::nextNode()
-{
-  return tail;
-}
-
 bool Agent::occupied(Node* v)
 {
   return onAgent(v) != nullptr;
 }
 
+// if there is no corresponding agent, just return nullptr
 Agent* Agent::onAgent(Node* v)
 {
   auto itr = std::find_if(A.begin(), A.end(),
@@ -141,6 +146,7 @@ bool Agent::isStable()
 State* Agent::getState()
 {
   State* s = new State { id, mode, pre_mode, head, tail, goal };
+  GC_state.push_back(s);  // for garbage collection
   return s;
 }
 
@@ -172,6 +178,7 @@ void Agent::printState(State* s)
   std::cout << "\n";
 }
 
+// for log
 std::string Agent::strAgent()
 {
   std::string str = "";

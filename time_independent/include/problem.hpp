@@ -1,23 +1,23 @@
+/*
+ * template of other problems, e.g., MAPF_RANDOM, MAPF_DP
+ */
+
 #pragma once
 #include "graph.hpp"
 #include "agent.hpp"
 #include "util.hpp"
-#include <chrono>
-
-static const int DEFAULT_MAX_ACTIVATION = 1000;
 
 
 class Problem {
 protected:
-  Graph* G;
-  Agents A;
-  std::mt19937* MT;
-
-  bool solved;
+  Graph* G;                  // graph
+  Agents A;                  // all agents
+  std::mt19937* MT;          // seed
+  bool solved;               // success or not
   const int max_activation;  // time step limit
+  int elapsed;               // computation time (ms)
 
-  int elapsed;  // time (ms)
-
+  // used for set positions randomly
   Nodes getSuffledNodes();
   Nodes getSuffledNodes(int n);
   void setStartsRandomly();
@@ -28,14 +28,15 @@ public:
   Problem(Graph* _G,
           Agents _A,
           std::mt19937* _MT,
-          int _max_activation = DEFAULT_MAX_ACTIVATION);
+          int _max_activation);
   virtual ~Problem();
 
-  virtual void run();
+  virtual void run();  // basic scheduler
 
+  // getter
   bool isSolved() { return solved; }
   int getElapsed() { return elapsed; }
 
-  virtual std::vector<States> getSyncExec() { return {}; }
+  // for log
   virtual std::string strProblem();
 };

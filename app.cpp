@@ -12,23 +12,27 @@
 #include <mapf_dp.hpp>
 #include <stn.hpp>
 
+/*
+ * MAPF_RANDOM: pickup one agent randomly
+ * MAPF_DP: emulate MAPF with Delay Probabilities
+ */
 enum ProblemType { PROBLEM_MAPF_RANDOM,
                    PROBLEM_MAPF_DP, };
 
 struct Param {
-  ProblemType problem_type;
-  std::string field_name;
-  int num_agent;
-  int seed;
-  int max_activation;
-  bool scen_off;
-  float delay_prob;
-  std::string mapf_plan;
+  ProblemType problem_type;  // MAPF_RANDOM or MAPF_DP
+  std::string field_name;    // map
+  int num_agent;             // the number of agents
+  int seed;                  // random seed
+  int max_activation;        // limit of the number of activation
+  bool scen_off;             // use random starts or goals
+  float delay_prob;          // used only in MAPF_DP, delay probability
+  std::string mapf_plan;     // used with FSP, MCP, CAUSAL_PIBT_MAPF
 };
 
 void readParam(const std::string& param_file, Param& param);
 void readSetNode(const std::string& s, Config& config, Graph* G);
-void readMAPFPlan(const std::string& plan_file, Configs& configs, Graph* G);
+void readMAPFPlan(const std::string& _file, Configs& configs, Graph* G);
 std::string strParam(Param& param);
 void printHelp();
 
@@ -38,6 +42,7 @@ int main(int argc, char *argv[])
   std::string instance_file = "";
   std::string output_file = "result.txt";
   std::string solver_name = "CAUSAL_PIBT";
+  bool verbose = false;
 
   struct option longopts[] =
     {
@@ -45,12 +50,14 @@ int main(int argc, char *argv[])
      { "output", required_argument, 0, 'o' },
      { "solver", required_argument, 0, 's' },
      { "help", no_argument, 0, 'h' },
+     { "verbose", no_argument, 0, 'v' },
      { 0, 0, 0, 0 },
     };
 
+  // command line args
   int opt, longindex;
   opterr = 0;  // ignore getopt error
-  while ((opt = getopt_long(argc, argv, "i:o:s:",
+  while ((opt = getopt_long(argc, argv, "i:o:s:hv",
                             longopts, &longindex)) != -1) {
     switch (opt) {
     case 'i':
@@ -61,6 +68,9 @@ int main(int argc, char *argv[])
       break;
     case 's':
       solver_name = std::string(optarg);
+      break;
+    case 'v':
+      verbose = true;
       break;
     case 'h':
       printHelp();
@@ -80,20 +90,21 @@ int main(int argc, char *argv[])
   // default value
   Param param =
     {
-     PROBLEM_MAPF_RANDOM,  // problem_type
-     "3x3.map",  // field_name
-     3,  // num_agent
-     0,  // seed,
-     DEFAULT_MAX_ACTIVATION,  // max_activation
-     true,  // scen_off
-     0.1,  // delay probability
-     "",  // mapf_plan
+     PROBLEM_MAPF_RANDOM,  // problem_type,
+     "3x3.map",            // map_name
+     3,                    // num_agent
+     0,                    // seed
+     1000,                 // max_activation
+     true,                 // scen_off
+     0.1,                  // delay probability
+     "",                   // mapf_plan
     };
   readParam(instance_file, param);
 
   // initialization
   std::mt19937* MT = new std::mt19937(param.seed);
   Agent::setMT(MT);
+  Agent::setVerbose(verbose);
 
   // make grid
   Graph* G = new Grid(param.field_name);
@@ -176,11 +187,13 @@ int main(int argc, char *argv[])
   for (auto a : A) delete a;
   delete P;
   delete G;
+  delete MT;
 
   return 0;
 }
 
 
+// read & set params
 void readParam(const std::string& param_file, Param& param)
 {
   std::ifstream file(param_file);
@@ -227,6 +240,7 @@ void readParam(const std::string& param_file, Param& param)
   }
 }
 
+// read MAPF plan
 void readMAPFPlan(const std::string& plan_file, Configs& configs, Graph* G)
 {
   std::ifstream file(_PLANDIR_ + plan_file);
@@ -279,7 +293,9 @@ void printHelp()
   std::cout << "\nUsage: ./app [OPTIONS]\n"
             << "  -i --instance [FILE_PATH]     instance file path\n"
             << "  -o --output [FILE_PATH]       ouptut file path\n"
-            << "  -s --solver [SOLVER_NAME]     solver, choose from the below\n"
+            << "  -s --solver [SOLVER_NAME]     solver, choose from "
+            << "[ GREEDY, CAUSAL_PIBT, CAUSAL_PIBT_MAPF, FSP, MCP ]\n"
+            << "  -v --verbose                  print additional info\n"
             << "  -h --help                     help\n"
             << std::endl;
 }

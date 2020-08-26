@@ -5,7 +5,6 @@ CausalPIBT::~CausalPIBT() {}
 
 void CausalPIBT::init(Node* v, Node* g)
 {
-  Agent::kind_name = "CAUSAL_PIBT";
   Agent::init(v, g);
 
   parent = this;
