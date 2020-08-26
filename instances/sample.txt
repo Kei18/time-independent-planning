@@ -1,0 +1,38 @@
+## ==== necessary ====
+## MAPF_RANDOM or MAPF_DP
+problem_type=MAPF_DP
+
+## .map file, put your maps in /map folder
+map_file=6x6.map
+
+## number of agents
+agents=7
+
+## ==== custom =======
+## upper bound of delay probability [0, 1)
+delay_prob=0.3
+
+## seed of randomization
+seed=0
+
+## true  -> random starts/goals
+## false -> use custom starts/goals
+random_problem=0
+
+## max activation
+max_activation=100
+
+## mapf_plan
+mapf_plan=sample.txt
+
+## custom starts/goals
+## invalid when random_problem=1 or scen_file exists
+## (x_s, y_s, x_g, y_g)
+## (0, 0): left-top corner
+4,0,4,4
+3,2,5,2
+0,3,5,3
+0,5,3,5
+3,5,0,5
+0,0,3,0
+0,1,3,1
