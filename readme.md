@@ -46,7 +46,7 @@ Two problem types exist set by param file:
   An example can be obtained as follows. __Following conflict__ is allowed in MAPF execution. [[result]](/material/small-crossing.gif)
 
 ```sh
-./app -i ../instances/small-crossing_2agents.txt  # Causal-PIBT
+./app -i ../instances/small-crossing_2agents.txt  # Causal-PIBT, saved in result.txt
 ```
 
 You can find details and explanations for all parameters with:
@@ -55,6 +55,7 @@ You can find details and explanations for all parameters with:
 ```
 
 Please see `instances/sample.txt` for parameters of instances, e.g., filed, number of agents, max activation, etc.
+Several instances are available in `instances/`.
 
 Note:
 - A log file can be huge. In such a case, using `-l` option simplifies the log but you cannot visualize the execution.
@@ -93,6 +94,7 @@ This software is released under the MIT License, see [LICENSE.txt](LICENCE.txt).
 - The font in `visualizer/bin/data` is from [Google Fonts](https://fonts.google.com/).
 - Scripts for the experiments are in `exp_scripts/`.
 - Formats of MAPF plans follows [MAPF simulator](https://github.com/kei18/mapf).
+  When you add a new MAPF plan, please place it in the `mapf_plan/` directory.
 
 ## Author
 [Keisuke Okumura](https://kei18.github.io) is a Ph.D. candidate at Tokyo Institute of Technology, working on multiple moving agents.
