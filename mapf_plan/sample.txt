@@ -1,4 +1,4 @@
-instance= ../../../CausalPIBT/simulator/instances/sample.txt
+instance= ../instances/sample.txt
 agents=7
 map_file=6x6.map
 solver=PIBT

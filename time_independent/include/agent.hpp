@@ -84,6 +84,7 @@ public:
   Node* getGoal() { return goal; }
   State* getState();
   static bool isInitialized() { return is_initialized; }
+  static int getCntActivation() { return cnt_activation; }
 
   // setter
   void setMode(Mode  _mode) { mode = _mode; }

@@ -182,8 +182,6 @@ void Agent::printState(State* s)
 std::string Agent::strAgent()
 {
   std::string str = "";
-  str += "cnt_activation=" + std::to_string(cnt_activation) + "\n";
-
   str += "execution(id,mode,head,tail,goal)=\n";
   int t = 0;
   for (auto config : CONFIGURATIONS) {

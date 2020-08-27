@@ -60,10 +60,6 @@ void MAPF_RANDOM::setStartsGoalsRandomly()
     }
   }
 
-  for (int i = 0; i < A.size(); ++i) {
-    std::cout << starts[i]->id << ", " << goals[i]->id << std::endl;
-  }
-
   // set goals
   if (Agent::isInitialized()) {
     for (int i = 0; i < A.size(); ++i) A[i]->setGoal(goals[i]);
@@ -113,7 +109,7 @@ void MAPF_RANDOM::readScenario(std::string filename)
   }
 
   if (num_agents > starts.size()) {
-    warn("the number of agents is smaller than the number of starts");
+    warn("the number of agents is larger than the number of starts");
     setStartsGoalsRandomly();
   }
 

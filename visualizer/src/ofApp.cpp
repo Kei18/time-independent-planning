@@ -235,16 +235,17 @@ void ofApp::draw()
   int y = 5;
   font_info.drawString(P->problem_name + " solved by " + P->solver,
                        x, y+=15);
-  font_info.drawString((P->solved ? "success" : "failed"),
+  std::string solved_status = P->solved ? "success" : "failed";
+  font_info.drawString(solved_status
+                       + ", comp-time (ms): "
+                       + std::to_string(P->comp_time),
                        x, y+=15);
   font_info.drawString("agents: "
                        + std::to_string(P->num_agents)
                        + ", map: " + P->G->getMapFileName(),
                        x, y+=15);
   font_info.drawString("activated_cnt: "
-                       + std::to_string(P->activated_cnt)
-                       + ", comp-time (ms): "
-                       + std::to_string(P->comp_time),
+                       + std::to_string(P->activated_cnt),
                        x, y+=15);
   x = 220 + w;
   y = 5;

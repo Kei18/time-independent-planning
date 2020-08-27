@@ -119,6 +119,8 @@ int main(int argc, char *argv[])
   Configs configs;
   if (param.mapf_plan != "") {
     readMAPFPlan(param.mapf_plan, configs, G);
+    // simple check
+    if (configs[0].size() != param.num_agent) halt("invalid MAPF plan");
   }
 
   // make agents
@@ -131,10 +133,13 @@ int main(int argc, char *argv[])
     } else if (solver_name == "GREEDY") {
       A.push_back(new Greedy());
     } else if (solver_name == "CAUSAL_PIBT_MAPF") {
+      if (path.empty()) halt("check mapf_plan");
       A.push_back(new CausalPIBT_MAPF(path));
     } else if (solver_name == "FSP") {
+      if (path.empty()) halt("check mapf_plan");
       A.push_back(new FSP(path));
     } else if (solver_name == "MCP") {
+      if (path.empty()) halt("check mapf_plan");
       A.push_back(new MCP(path));
     } else {
       halt("main", "unknown solver type");
@@ -178,6 +183,7 @@ int main(int argc, char *argv[])
   result += "solver=" + solver_name + "\n";
   result += "seed=" + std::to_string(param.seed) + "\n";
   result += "max_activation=" + std::to_string(param.max_activation) + "\n";
+  result += "cnt_activation=" + std::to_string(Agent::getCntActivation()) + "\n";
   if (param.mapf_plan != "")
     result += "mapf_plan=" + param.mapf_plan + "\n";
   result += P->strProblem();

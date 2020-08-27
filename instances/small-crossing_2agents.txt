@@ -1,0 +1,8 @@
+problem_type=MAPF_RANDOM
+map_file=small-crossing.map
+agents=2
+seed=0
+random_problem=0
+max_activation=1000
+1,0,1,2
+0,1,2,1

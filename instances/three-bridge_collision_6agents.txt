@@ -1,0 +1,14 @@
+problem_type=MAPF_DP
+map_file=three-bridge.map
+agents=6
+seed=0
+delay_prob=0.1
+random_problem=0
+max_activation=10000
+mapf_plan=three-bridge_collision.txt
+0,0,5,0
+5,0,0,0
+5,2,0,2
+0,2,5,2
+5,4,0,4
+0,4,5,4

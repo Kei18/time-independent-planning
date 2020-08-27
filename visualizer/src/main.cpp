@@ -19,6 +19,13 @@ int main(int argc, char *argv[]) {
 
   Exec* exec = new Exec;
   readSetResult(argv[1], exec);
+
+  // simple check
+  if (exec->transitions.empty()) {
+    warn("the result cannot be visualized.");
+    return 0;
+  }
+
   ofSetupOpenGL(100, 100, OF_WINDOW);
   ofRunApp(new ofApp(exec));
 
