@@ -93,10 +93,10 @@ execution(id,mode,head,tail,goal)=
 ## Visualizer
 
 ### Building
+Run as follows at your project directory.
 It takes around 10 minutes.
 ```sh
-git submodule init
-git submodule update
+git clone https://github.com/openframeworks/openFrameworks.git
 sh ./openFrameworks/scripts/osx/download_libs.sh
 cd visualizer/
 make build
