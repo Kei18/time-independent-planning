@@ -60,6 +60,39 @@ Several instances are available in `instances/`.
 Note:
 - A log file can be huge. In such a case, using `-l` option simplifies the log but you cannot visualize the execution.
 
+### Output File
+
+This is an example output of `../instances/sample.txt`.
+A position `(x, y)` are represented as a single number `i = widht*y + x`
+```
+instance=../instances/sample.txt
+agents=7
+map_file=6x6.map
+solver=CAUSAL_PIBT_MAPF
+seed=0
+max_activation=1000
+cnt_activation=107
+mapf_plan=sample.txt
+problem=MAPF_DP
+delay_prob=0.300000
+solved=1
+comp_time=0
+starts=4,15,18,30,33,0,6,
+goals=28,17,23,33,30,3,9,
+makespan=9
+soc=34
+mapf_execution=
+0:4,15,18,30,33,0,6,
+1:10,16,19,31,27,1,6,
+[...]
+9:28,17,23,33,30,3,9,
+===
+execution(id,mode,head,tail,goal)=
+0:0:(0,0,-1,4,28),(1,0,-1,15,17),(2,0,-1,18,23),[...]
+1:1:(0,0,-1,4,28),(1,1,16,15,17),(2,0,-1,18,23),[...]
+[...]
+```
+
 ## Visualizer
 
 ### Building
