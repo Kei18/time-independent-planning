@@ -1,6 +1,5 @@
 Time-Independent Planning
 ===
-[![Build Status](https://travis-ci.com/Kei18/time-independent-planning.svg?token=NJ5EpN7k73FqKbLee887&branch=master)](https://travis-ci.com/Kei18/time-independent-planning)
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 
 A simulator and visualizer of time-independent planning, used in a paper "Time-Independent Planning with Multiple Moving Agents".
@@ -25,8 +24,6 @@ The right shows the adapted execution in the MAPF-DP setting.
 ## Building
 
 ```
-git clone https://github.com/Kei18/time-independent-planning
-cd time-independent-planning
 mkdir build
 cd build
 cmake ..
@@ -126,11 +123,10 @@ This software is released under the MIT License, see [LICENSE.txt](LICENCE.txt).
   When you add a new map, please place it in the `maps/` directory.
 - The font in `visualizer/bin/data` is from [Google Fonts](https://fonts.google.com/).
 - Scripts for the experiments are in `exp_scripts/`.
-- Formats of MAPF plans follows [MAPF simulator](https://github.com/kei18/mapf).
-  When you add a new MAPF plan, please place it in the `mapf_plan/` directory.
+- When you add a new MAPF plan, please place it in the `mapf_plan/` directory.
 
 ## Author
-[Keisuke Okumura](https://kei18.github.io) is a Ph.D. candidate at Tokyo Institute of Technology, working on multiple moving agents.
+Anonymous Authors
 
 ## Reference
 1. Ma, H., Kumar, T. K., & Koenig, S. (2016).
