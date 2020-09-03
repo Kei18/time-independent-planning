@@ -6,7 +6,7 @@ A simulator and visualizer of time-independent planning, used in a paper "Time-I
 It is written in C++(17) with [CMake](https://cmake.org/) build and tested on OSX 10.15.
 The visualizer uses [openFrameworks](https://openframeworks.cc).
 
-The implementations include emulation of FCP and MCP [1] in the time-independent model.
+The implementations include emulation of FSP and MCP [1] in the time-independent model.
 
 ## Demo
 ![demo in small filed](/material/sample.gif)
