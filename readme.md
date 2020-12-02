@@ -3,7 +3,7 @@ Time-Independent Planning
 [![Build Status](https://travis-ci.com/Kei18/time-independent-planning.svg?token=NJ5EpN7k73FqKbLee887&branch=master)](https://travis-ci.com/Kei18/time-independent-planning)
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 
-A simulator and visualizer of time-independent planning, used in a paper "Time-Independent Planning with Multiple Moving Agents".
+A simulator and visualizer of time-independent planning, used in a paper [Time-Independent Planning with Multiple Moving Agents](https://arxiv.org/abs/2005.13187) (to be presented at AAAI-21).
 It is written in C++(17) with [CMake](https://cmake.org/) build and tested on OSX 10.15.
 The visualizer uses [openFrameworks](https://openframeworks.cc).
 
@@ -126,7 +126,7 @@ This software is released under the MIT License, see [LICENSE.txt](LICENCE.txt).
   When you add a new map, please place it in the `maps/` directory.
 - The font in `visualizer/bin/data` is from [Google Fonts](https://fonts.google.com/).
 - Scripts for the experiments are in `exp_scripts/`.
-- Formats of MAPF plans follows [MAPF simulator](https://github.com/kei18/mapf).
+- Formats of MAPF plans follows [MAPF simulator](https://kei18.github.io/mapf-IR/).
   When you add a new MAPF plan, please place it in the `mapf_plan/` directory.
 
 ## Author
