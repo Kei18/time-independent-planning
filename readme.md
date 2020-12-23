@@ -1,7 +1,7 @@
 Time-Independent Planning
 ===
 [![Build Status](https://travis-ci.com/Kei18/time-independent-planning.svg?token=NJ5EpN7k73FqKbLee887&branch=master)](https://travis-ci.com/Kei18/time-independent-planning)
-[![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
+[![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENCE.txt)
 
 A simulator and visualizer of time-independent planning, used in a paper [Time-Independent Planning with Multiple Moving Agents](https://arxiv.org/abs/2005.13187) (to be presented at AAAI-21).
 It is written in C++(17) with [CMake](https://cmake.org/) build and tested on OSX 10.15.
@@ -119,7 +119,7 @@ Note:
 - It may take time to visualize large scale problems, e.g., in random-64-64-20 with 200 agents, I do not recommend to visualize it.
 
 ## Licence
-This software is released under the MIT License, see [LICENSE.txt](LICENCE.txt).
+This software is released under the MIT License, see [LICENCE.txt](LICENCE.txt).
 
 ## Notes
 - Maps in `maps/` are from [MAPF benchmarks](https://movingai.com/benchmarks/mapf.html).
