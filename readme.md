@@ -1,6 +1,6 @@
 Time-Independent Planning
 ===
-[![Build Status](https://travis-ci.com/Kei18/time-independent-planning.svg?token=NJ5EpN7k73FqKbLee887&branch=master)](https://travis-ci.com/Kei18/time-independent-planning)
+![build](https://github.com/Kei18/time-independent-planning/workflows/build/badge.svg?branch=master)
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENCE.txt)
 
 A simulator and visualizer of time-independent planning, used in a paper [Time-Independent Planning with Multiple Moving Agents](https://arxiv.org/abs/2005.13187) (to be presented at AAAI-21).
