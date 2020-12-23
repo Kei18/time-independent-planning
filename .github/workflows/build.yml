@@ -25,10 +25,3 @@ jobs:
       - name: run-app
         working-directory: build
         run: ./app -i ../instances/sample.txt -s CAUSAL_PIBT_MAPF -v
-
-      - name: build-visualizer
-        run: |
-          ls -all
-          sh ./openFrameworks/scripts/osx/download_libs.sh
-          cd visualizer
-          make build
