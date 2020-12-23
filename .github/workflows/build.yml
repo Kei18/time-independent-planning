@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-10.15
 
     steps:
       - uses: actions/checkout@v1
@@ -16,6 +16,7 @@ jobs:
 
       - name: build
         run: |
+          ls -all
           mkdir build
           cd build
           cmake ..
@@ -26,7 +27,8 @@ jobs:
         run: ./app -i ../instances/sample.txt -s CAUSAL_PIBT_MAPF -v
 
       - name: build-visualizer
-        working-directory: visualizer
         run: |
-          sh ../openFrameworks/scripts/osx/download_libs.sh
+          ls -all
+          sh ./openFrameworks/scripts/osx/download_libs.sh
+          cd visualizer
           make build
