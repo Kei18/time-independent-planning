@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  dev_test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -27,4 +27,6 @@ jobs:
 
       - name: build-visualizer
         working-directory: visualizer
-        run: make build
+        run: |
+          sh ../openFrameworks/scripts/osx/download_libs.sh
+          make build
