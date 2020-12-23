@@ -1,6 +1,7 @@
 language: cpp
 
 os: osx
+osx_image: xcode12
 
 before_script:
   - sh ./openFrameworks/scripts/osx/download_libs.sh
