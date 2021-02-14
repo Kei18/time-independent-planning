@@ -29,7 +29,7 @@ Node* Greedy::nextNode()
   // pickup the nearest node to the goal
   Nodes min_C;
   int dist;
-  int min_dist = G->getNodesNum();
+  int min_dist = G->getNodesSize();
   for (auto v : C) {
     dist = G->pathDist(v, goal);
     if (dist < min_dist) min_C.clear();

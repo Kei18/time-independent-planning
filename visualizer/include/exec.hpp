@@ -1,5 +1,8 @@
 #pragma once
-#include "graph.hpp"
+#include "../../third_party/grid-pathfinding/graph/include/graph.hpp"
+
+using Config = std::vector<Node*>;  // < loc_0[t], loc_1[t], ... >
+using Configs = std::vector<Config>;
 
 namespace Agent {
   enum Mode { CONTRACTED, REQUESTING, EXTENDED };

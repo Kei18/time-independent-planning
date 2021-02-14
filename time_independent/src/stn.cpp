@@ -30,7 +30,7 @@ void STN::createDiagram()
   }
 
   std::unordered_map<int, Event*> last_visits;
-  Nodes V = G->getNodes();
+  Nodes V = G->getV();
 
   for (auto v : V) {
     if (v != nullptr) last_visits[v->id] = nullptr;

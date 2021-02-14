@@ -10,9 +10,11 @@ jobs:
     runs-on: macos-10.15
 
     steps:
-      - uses: actions/checkout@v1
+    steps:
+      - uses: actions/checkout@v2
         with:
           submodules: true
+          token: ${{ secrets.PERSONAL_TOKEN }}
 
       - name: build
         run: |
@@ -25,3 +27,6 @@ jobs:
       - name: run-app
         working-directory: build
         run: ./app -i ../instances/sample.txt -s CAUSAL_PIBT_MAPF -v
+
+      - name: build-visualizer
+        run: bash ./visualizer/scripts/build_macos.sh

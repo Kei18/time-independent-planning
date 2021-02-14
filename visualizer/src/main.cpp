@@ -3,8 +3,8 @@
 #include <fstream>
 #include <regex>
 #include "../include/ofApp.hpp"
-#include "../include/graph.hpp"
 #include "../include/exec.hpp"
+#include "../include/util.hpp"
 
 void readSetNode(const std::string& s, Config& config, Grid* G);
 void readSetStates(const std::string& s, States& states, Grid* G);

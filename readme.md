@@ -4,8 +4,8 @@ Time-Independent Planning
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENCE.txt)
 
 A simulator and visualizer of time-independent planning, used in a paper [Time-Independent Planning with Multiple Moving Agents](https://arxiv.org/abs/2005.13187) (to be presented at AAAI-21).
-It is written in C++(17) with [CMake](https://cmake.org/) build and tested on OSX 10.15.
-The visualizer uses [openFrameworks](https://openframeworks.cc).
+It is written in C++(17) with [CMake](https://cmake.org/) (≥v3.16) build. build and tested on OSX 10.15.
+The visualizer uses [openFrameworks](https://openframeworks.cc) and works only on macOS.
 
 The implementations include emulation of FSP and MCP [1] in the time-independent model.
 
@@ -25,7 +25,7 @@ The right shows the adapted execution in the MAPF-DP setting.
 ## Building
 
 ```
-git clone https://github.com/Kei18/time-independent-planning
+git clone --recursive https://github.com/Kei18/time-independent-planning
 cd time-independent-planning
 mkdir build
 cd build
@@ -95,17 +95,12 @@ execution(id,mode,head,tail,goal)=
 
 ## Visualizer
 
-### Building
-It takes around 10 minutes.
+#### macOS
 ```sh
-git submodule init
-git submodule update
-sh ./openFrameworks/scripts/osx/download_libs.sh
-cd visualizer/
-make build
-cd ..
-chmod +x ./visualize.sh
+bash ./visualizer/scripts/build_macos.sh
 ```
+
+Note: The script of openFrameworks seems to contain bugs. Check this [issue](https://github.com/openframeworks/openFrameworks/issues/6623). I fixed this in my script :D
 
 ### Usage
 ```sh
@@ -130,7 +125,7 @@ This software is released under the MIT License, see [LICENCE.txt](LICENCE.txt).
   When you add a new MAPF plan, please place it in the `mapf_plan/` directory.
 
 ## Author
-[Keisuke Okumura](https://kei18.github.io) is a Ph.D. candidate at Tokyo Institute of Technology, working on multiple moving agents.
+[Keisuke Okumura](https://kei18.github.io) is a Ph.D. student at the Tokyo Institute of Technology, interested in controlling multiple moving agents.
 
 ## Reference
 1. Ma, H., Kumar, T. K., & Koenig, S. (2016).

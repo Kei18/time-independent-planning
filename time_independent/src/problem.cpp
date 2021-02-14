@@ -6,7 +6,7 @@ Problem::Problem(Graph* _G,
                  int _max_activation)
   : G(_G), A(_A), MT(_MT), max_activation(_max_activation)
 {
-  if (G->getNodesNum() <= A.size())
+  if (G->getV().size() <= A.size())
     halt("Problem::Problem", "#agent is over #node");
 
   solved = false;
@@ -35,7 +35,7 @@ void Problem::run()
 
 Nodes Problem::getShuffledNodes()
 {
-  Nodes V = G->getNodes();
+  Nodes V = G->getV();
   Nodes W(V.size());
   std::copy(V.begin(), V.end(), W.begin());
   std::shuffle(W.begin(), W.end(), *MT);
@@ -44,10 +44,6 @@ Nodes Problem::getShuffledNodes()
 
 Nodes Problem::getShuffledNodes(int n)
 {
-  if (n >= G->getNodesNum()) {
-    halt("Problem::getSuffledNodes", "#node "
-         + std::to_string(n) + " are too big!");
-  }
   Nodes V = getShuffledNodes();
   V.resize(n);
   return V;

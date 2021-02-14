@@ -3,10 +3,12 @@
  */
 
 #pragma once
-#include "graph.hpp"
+#include <graph.hpp>
 #include "agent.hpp"
 #include "util.hpp"
 
+using Config = std::vector<Node*>;  // < loc_0[t], loc_1[t], ... >
+using Configs = std::vector<Config>;
 
 class Problem {
 protected:

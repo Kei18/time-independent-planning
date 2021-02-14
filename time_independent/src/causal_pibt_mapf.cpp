@@ -64,8 +64,8 @@ Node* CausalPIBT_MAPF::nextNode()
     C.begin(), C.end(),
     [&] (Node* u1, Node* u2) {
       int d;
-      int d_u1 = G->getNodesNum();
-      int d_u2 = G->getNodesNum();
+      int d_u1 = G->getNodesSize();
+      int d_u2 = G->getNodesSize();
       for (int _t = t + 1; _t < plan.size(); ++_t) {
         d = G->pathDist(u1, plan[_t]);
         if (d < d_u1) d_u1 = d;
