@@ -8,8 +8,12 @@ on:
 jobs:
   build:
     runs-on: macos-10.15
+    paths:
+      - 'visualizer/**'
+      - 'time_independent/**'
+      - '.github/workflows/build.yml'
 
-    steps:
+
     steps:
       - uses: actions/checkout@v2
         with:

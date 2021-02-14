@@ -4,7 +4,8 @@ Time-Independent Planning
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENCE.txt)
 
 A simulator and visualizer of time-independent planning, used in a paper [Time-Independent Planning with Multiple Moving Agents](https://arxiv.org/abs/2005.13187) (to be presented at AAAI-21).
-It is written in C++(17) with [CMake](https://cmake.org/) (≥v3.16) build. build and tested on OSX 10.15.
+It is written in C++(17) with [CMake](https://cmake.org/) (≥v3.16) build and tested on OSX 10.15.
+The repository uses [the original library for 2D pathfinding](https://github.com/Kei18/grid-pathfinding) as git submodules.
 The visualizer uses [openFrameworks](https://openframeworks.cc) and works only on macOS.
 
 The implementations include emulation of FSP and MCP [1] in the time-independent model.
@@ -113,6 +114,11 @@ You can manipulate it via your keyboard. See printed info.
 Note:
 - It may take time to visualize large scale problems, e.g., in random-64-64-20 with 200 agents, I do not recommend to visualize it.
 
+## Experimental Environment
+[![v1.0](https://img.shields.io/badge/tag-v1.0-blue.svg?style=flat)](https://github.com/Kei18/time-independent-planning/releases/tag/v1.0)
+
+Scripts for the experiments are in `exp_scripts/`.
+
 ## Licence
 This software is released under the MIT License, see [LICENCE.txt](LICENCE.txt).
 
@@ -120,7 +126,6 @@ This software is released under the MIT License, see [LICENCE.txt](LICENCE.txt).
 - Maps in `maps/` are from [MAPF benchmarks](https://movingai.com/benchmarks/mapf.html).
   When you add a new map, please place it in the `maps/` directory.
 - The font in `visualizer/bin/data` is from [Google Fonts](https://fonts.google.com/).
-- Scripts for the experiments are in `exp_scripts/`.
 - Formats of MAPF plans follows [MAPF simulator](https://kei18.github.io/mapf-IR/).
   When you add a new MAPF plan, please place it in the `mapf_plan/` directory.
 
