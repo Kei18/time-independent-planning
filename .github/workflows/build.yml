@@ -4,15 +4,14 @@ on:
   push:
     branches:
       - master
-
-jobs:
-  build:
-    runs-on: macos-10.15
     paths:
       - 'visualizer/**'
       - 'time_independent/**'
       - '.github/workflows/build.yml'
 
+jobs:
+  build:
+    runs-on: macos-10.15
 
     steps:
       - uses: actions/checkout@v2
