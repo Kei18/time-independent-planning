@@ -4,3 +4,4 @@
 [submodule "third_party/openFrameworks"]
 	path = third_party/openFrameworks
 	url = https://github.com/openframeworks/openFrameworks.git
+	ignore = dirty
