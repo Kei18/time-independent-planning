@@ -51,6 +51,7 @@ int main(int argc, char *argv[])
      { "output", required_argument, 0, 'o' },
      { "solver", required_argument, 0, 's' },
      { "help", no_argument, 0, 'h' },
+     { "seed", no_argument, 0, 'r' },
      { "verbose", no_argument, 0, 'v' },
      { "log-simple", no_argument, 0, 'l' },
      { 0, 0, 0, 0 },
@@ -58,8 +59,9 @@ int main(int argc, char *argv[])
 
   // command line args
   int opt, longindex;
+  int seed = -1;
   opterr = 0;  // ignore getopt error
-  while ((opt = getopt_long(argc, argv, "i:o:s:hvl",
+  while ((opt = getopt_long(argc, argv, "i:o:s:r:hvl",
                             longopts, &longindex)) != -1) {
     switch (opt) {
     case 'i':
@@ -76,6 +78,9 @@ int main(int argc, char *argv[])
       break;
     case 'l':
       log_simple = true;
+      break;
+    case 'r':
+      seed = std::atoi(optarg);
       break;
     case 'h':
       printHelp();
@@ -105,6 +110,8 @@ int main(int argc, char *argv[])
      "",                   // mapf_plan
     };
   readParam(instance_file, param);
+  if (seed != -1) param.seed = seed;
+
 
   // initialization
   std::mt19937* MT = new std::mt19937(param.seed);
